@@ -1,0 +1,44 @@
+# /etc/ssh/sshd_config
+#
+   
+# Las direcciones IP que escuchan conexiones entrantes. 0.0.0.0 significa todas las
+# direcciones locales
+ListenAddress 0.0.0.0
+    
+# El puerto TCP que escucha conexiones entrantes. Por omisión el 22.
+Port 2222
+   
+# El nombre del fichero clave del host.
+# HostKey /etc/ssh/ssh_host_key
+    
+# La longitud de la clave en bits.
+ServerKeyBits 1024
+    
+# ¿Debemos permitir registros (login) del root por ssh?
+PermitRootLogin yes
+    
+# ¿Debe el demonio ssh verificar que el directorio inicial (home) del usuario y los permisos de fichero
+# sean seguros antes de permitir el registro (login)?
+StrictModes yes
+    
+# ¿Debemos permitir el método antiguo de autentificación  ~/.rhosts y /etc/hosts.equiv?
+RhostsAuthentication no
+# ¿Debemos permitir autenticación pura RSA?
+RSAAuthentication yes
+# ¿Debemos permitir autenticación por contraseña?
+PasswordAuthentication yes
+    
+# ¿Debemos permitir /etc/hosts.equiv combinado con autentificación host por RSA?
+RhostsRSAAuthentication no
+# ¿Ignorar los ficheros ~/.rhosts?
+IgnoreRhosts yes
+# ¿Permitimos registros (logins) a cuentas con contraseñas vacías?
+PermitEmptyPasswords no
+
+# Otras
+LoginGraceTime 180
+X11Forwarding yes
+Ciphers aes128-cbc,3des-cbc,aes256-cbc,aes128-ctr,aes192-ctr,aes256-ctr
+MACs hmac-sha1,hmac-sha1-96
+SyslogFacility DAEMON
+Subsystem sftp internal-sftp
