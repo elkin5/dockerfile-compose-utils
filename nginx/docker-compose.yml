@@ -9,3 +9,8 @@ services:
       - ./nginx/cache/:/etc/nginx/cache
     ports:
       - 80:80
+
+networks:
+  default:
+    external:
+      name: montar-opengrok_default
