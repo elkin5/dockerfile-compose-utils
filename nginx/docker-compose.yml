@@ -2,15 +2,15 @@ version: '3'
 services:
   nginx: 
     build: .
-    container_name: nginx
+    container_name: nginx_opengrok
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/error.log:/etc/nginx/error_log.log
-      - ./nginx/cache/:/etc/nginx/cache
+      - ./var/log:/var/log/nginx
+      - ./var/cache:/var/cache/nginx
     ports:
-      - 80:80
+      - 80:8080
 
 networks:
   default:
     external:
-      name: montar-opengrok_default
+      name: docker-opengrok_default
