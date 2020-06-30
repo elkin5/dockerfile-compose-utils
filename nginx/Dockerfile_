@@ -1,0 +1,19 @@
+FROM nginx:alpine
+
+# Add su-exec and curl
+RUN apk add --no-cache su-exec && \
+    apk add --no-cache curl && \
+    rm -rf /var/cache/apk/*
+
+# Copy entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod 755 /usr/local/bin/entrypoint.sh
+
+EXPOSE 8443
+EXPOSE 8080
+
+HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+CMD ["nginx", "-g", "daemon off;"]
