@@ -1,0 +1,18 @@
+version: "3"
+
+# More info at https://github.com/oracle/opengrok/docker/
+services:
+  opengrok:
+    image: elkin5/opengrok-open
+    container_name: opengrok-test
+    environment:
+      REINDEX: 60
+    # Volumes store your data between container upgrades
+    volumes:
+       - './src:/opengrok/src/'  # source code
+    networks: 
+        - nginx-examples_default
+
+networks: 
+    nginx-examples_default:
+        external: true
