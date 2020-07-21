@@ -1,0 +1,6 @@
+opengrok/opengrok-src
+opengrok/opengrok-etc
+opengrok/opengrok-data
+nginx/var
+.env
+.vscode
