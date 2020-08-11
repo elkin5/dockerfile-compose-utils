@@ -1,0 +1,43 @@
+version: "3"
+
+# More info at https://github.com/oracle/opengrok/docker/
+services:
+  opengrok:
+    container_name: opengrok
+    build:
+      context: ./opengrok
+      args:
+        - 'USER_ID=${USER_ID}'
+        - 'GROUP_ID=${GROUP_ID}'
+    user: ${USER_ID}:${GROUP_ID}
+    environment:
+      REINDEX: '${OPENGROK_REINDEX}'
+    # Volumes store your data between container upgrades
+    volumes:
+       - '${OPENGROK_SRC}:/opengrok/src/:Z'  # source code
+       - '${OPENGROK_ETC}:/opengrok/etc/:Z'  # folder contains configuration.xml
+       - '${OPENGROK_DATA}:/opengrok/data/:Z'  # index and other things for source code
+
+  nginx:
+    container_name: nginx_opengrok
+    build:
+      context: ./nginx
+      args:
+        - 'USER_ID=${USER_ID}'
+        - 'GROUP_ID=${GROUP_ID}'
+    volumes:
+      - '${NGINX_CONF}:/etc/nginx/nginx.conf:z'
+      - '${NGINX_LOG}:/var/log/nginx:z'
+      - '${NGINX_CACHE}:/var/cache/nginx:z'
+    ports:
+      - '80:8080'
+      - '8080:8080'
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${NETWORK_SUBNET}
+        

@@ -1,0 +1,21 @@
+#Grupo y usuario que se va a utilizar para la instalacion
+USER_ID=1000
+GROUP_ID=1000
+# Tiempo en minutos que se usara para que opengrok se reindexe 
+OPENGROK_REINDEX=60
+# Ruta donde estaran los archivos o repositorios a indexar
+OPENGROK_SRC=./opengrok/opengrok-src
+# Ruta donde se generaran las configuraciones
+OPENGROK_ETC=./opengrok/opengrok-etc
+# Ruta donde se guardan los datos del indexado realizado por opengrok
+OPENGROK_DATA=./opengrok/opengrok-data
+# Archivo de configuracion de nginx
+NGINX_CONF=./nginx/nginx.conf
+# Carpeta de logs de nginx
+NGINX_LOG=./nginx/var/log
+# Carpeta de cache de nginx
+NGINX_CACHE=./nginx/var/cache
+# ip de red
+NETWORK_SUBNET=172.29.0.0/16
+# Zona horaria
+TIME_ZONE=America/Bogota
