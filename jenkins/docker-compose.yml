@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    user: 1000:1000
+    environment:
+      JENKINS_OPTS: '--httpPort=9090'
+    # Volumes store your data between container upgrades
+    volumes:
+       - '~/jenkins_home:/var/jenkins_home'
+    ports:
+      - '50000:50000'
+      - '9090:9090'
+        
