@@ -10,11 +10,12 @@ services:
       - '0.0.0.0:32769:1521'
       - '0.0.0.0:32768:5500'
     environment: 
-      - DB_MEMORY=512Mb #This parameter sets the memory requirement for the Oracle server. This value determines the amount of memory to be allocated for SGA and PGA. The default value is set to 2GB.
+      - DB_MEMORY=1024Mb #This parameter sets the memory requirement for the Oracle server. This value determines the amount of memory to be allocated for SGA and PGA. The default value is set to 2GB.
       #- DB_SID This parameter changes the ORACLE_SID of the database. The default value is set to ORCLCDB.
       #- DB_DOMAIN This parameter sets the domain to be used for database server. The default value is localdomain.
     # para poder usar estoprimero debo crear un usuario del mismo tipo 
     # sudo groupadd -g 54321 oinstall && useradd -ms /bin/bash -u 54321 -g 54321 oracle
     # asociar la carpeta al usuario 
     # sudo chown -R 54321:54321 ./ORCL
-    
+
+# docker run -d -it --name oracle12c -p 32700:1521 -p 32699:5500 -v OracleDBData:/ORCL --env-file ora.conf store/oracle/database-enterprise:12.2.0.1-slim
