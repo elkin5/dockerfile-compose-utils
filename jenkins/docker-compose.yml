@@ -9,8 +9,14 @@ services:
       JENKINS_OPTS: '--httpPort=9090'
     # Volumes store your data between container upgrades
     volumes:
+      # Crear carpeta mkdir ~/jenkins_home
        - '~/jenkins_home:/var/jenkins_home'
-    ports:
-      - '50000:50000'
-      - '9090:9090'
-        
+    networks: 
+        - nginx-server_default
+
+    #ports:
+    #  - '50000:50000'
+    #  - '9090:9090'
+networks: 
+    nginx-server_default:
+        external: true
