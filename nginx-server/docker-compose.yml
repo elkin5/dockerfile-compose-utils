@@ -1,0 +1,19 @@
+version: '3'
+services: 
+    web:
+        image: nginx
+        container_name: nginx-server
+        ports: 
+            - "80:80"
+        volumes:
+            - "./conf.d:/etc/nginx/conf.d/"
+            - "./nginx.conf:/etc/nginx/nginx.conf"
+            - "./htdocs:/usr/share/nginx/html"
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.1/16
