@@ -3,6 +3,7 @@ version: "2"
 services:
   postgres:
     image: postgres
+    # restart: always
     ports:
       - "5432:5432"
     # networks:
@@ -12,8 +13,8 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=123
     volumes:
-      - /home/elkin/postgres/postgresql:/var/lib/postgresql
-      - /home/elkin/postgres/postgresql_data:/var/lib/postgresql/data
+      - ~/postgres/postgresql:/var/lib/postgresql
+      - ~/postgres/postgresql_data:/var/lib/postgresql/data
 
 # networks: 
 #     nginx-server_default:
