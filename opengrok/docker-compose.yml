@@ -5,14 +5,18 @@ services:
   opengrok:
     image: elkin5/opengrok-open
     container_name: opengrok-test
+    ports: 
+      - "8080:8080"
     environment:
-      REINDEX: 60
+      REINDEX: 30
     # Volumes store your data between container upgrades
     volumes:
-       - './src:/opengrok/src/'  # source code
-    networks: 
-        - nginx-examples_default
+       - '~/opengrok/src:/opengrok/src/'  # source code
+       - '~/opengrok/data:/opengrok/data/'
+       - '~/opengrok/etc:/opengrok/etc/'
+#     networks: 
+#         - nginx-examples_default
 
-networks: 
-    nginx-examples_default:
-        external: true
+# networks: 
+#     nginx-examples_default:
+#         external: true
