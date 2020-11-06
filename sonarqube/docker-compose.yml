@@ -1,16 +1,17 @@
 version: "2"
 
+# Levantar postgres primero
 services:
   sonarqube:
     image: sonarqube
     ports:
       - "9000:9000"
-    # networks:
-    #   - nginx-server_default
+    networks:
+      - postgres_default
     environment:
-      - sonar.jdbc.username=sonar
+      - sonar.jdbc.username=admin
       - sonar.jdbc.password=123
-      - sonar.jdbc.url=jdbc:postgresql://postgres:5432/sonar
+      - sonar.jdbc.url=jdbc:postgresql://postgres:5432/admin
     volumes:
       - ~/sonarqube/sonarqube_conf:/opt/sonarqube/conf
       - ~/sonarqube/sonarqube_data:/opt/sonarqube/data
@@ -20,8 +21,8 @@ services:
        soft: 65536
        hard: 65536
 
-# networks: 
-#     nginx-server_default:
-#         external: true
+networks: 
+    postgres_default:
+        external: true
 
 # Error sonarquebe al levantar:  sudo sysctl -w vm.max_map_count=262144
