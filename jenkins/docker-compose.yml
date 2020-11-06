@@ -3,7 +3,7 @@ version: "3"
 services:
   jenkins:
     container_name: jenkins
-    image: jenkins/jenkins:lts
+    image: jenkins/jenkins
     user: 1000:1000
     environment:
       JENKINS_OPTS: '--httpPort=9090'
@@ -11,12 +11,11 @@ services:
     volumes:
       # Crear carpeta mkdir ~/jenkins_home
        - '~/jenkins_home:/var/jenkins_home'
-    networks: 
-        - nginx-server_default
-
-    #ports:
-    #  - '50000:50000'
-    #  - '9090:9090'
-networks: 
-    nginx-server_default:
-        external: true
+    # networks: 
+    #     - nginx-server_default
+    ports:
+      - '50000:50000'
+      - '9090:9090'
+# networks: 
+#     nginx-server_default:
+#         external: true
