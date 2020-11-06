@@ -3,10 +3,10 @@ version: "2"
 services:
   sonarqube:
     image: sonarqube
-    #ports:
-    #  - "9000:9000"
-    networks:
-      - nginx-server_default
+    ports:
+      - "9000:9000"
+    # networks:
+    #   - nginx-server_default
     environment:
       - sonar.jdbc.username=sonar
       - sonar.jdbc.password=123
@@ -19,21 +19,9 @@ services:
       nofile:
        soft: 65536
        hard: 65536
-  postgres:
-    image: postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - nginx-server_default
-    environment:
-      - POSTGRES_USER=sonar
-      - POSTGRES_PASSWORD=123
-    volumes:
-      - /home/elkin/postgres/postgresql:/var/lib/postgresql
-      - /home/elkin/postgres/postgresql_data:/var/lib/postgresql/data
 
-networks: 
-    nginx-server_default:
-        external: true
+# networks: 
+#     nginx-server_default:
+#         external: true
 
 # Error sonarquebe al levantar:  sudo sysctl -w vm.max_map_count=262144
