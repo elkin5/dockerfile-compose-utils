@@ -1,11 +1,12 @@
-version: "2"
+version: "3.9"
 
 services:
   postgres:
     image: postgres
-    # restart: always
+    restart: unless-stopped
     ports:
       - "5432:5432"
+    user: 1000:1000
     # networks:
     #   - nginx-server_default
     # Este es el usuario root de la base de datos
@@ -13,8 +14,8 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=123
     volumes:
-      - ~/postgres/postgresql:/var/lib/postgresql
-      - ~/postgres/postgresql_data:/var/lib/postgresql/data
+      - ~/postgresql:/var/lib/postgresql
+      - ~/postgresql/data:/var/lib/postgresql/data
 
 # networks: 
 #     nginx-server_default:
