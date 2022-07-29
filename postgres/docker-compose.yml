@@ -11,12 +11,12 @@ services:
     #   - nginx-server_default
     # Este es el usuario root de la base de datos
     environment:
+      # - POSTGRES_DB=keycloakdb nombre bd ppal
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=123
     volumes:
       - ~/postgresql:/var/lib/postgresql
       - ~/postgresql/data:/var/lib/postgresql/data
-
-# networks: 
-#     nginx-server_default:
-#         external: true
+networks: 
+    postgres_default:
+        external: true

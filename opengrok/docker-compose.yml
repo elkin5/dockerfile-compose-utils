@@ -3,12 +3,13 @@ version: "3"
 # More info at https://github.com/oracle/opengrok/docker/
 services:
   opengrok:
-    image: elkin5/opengrok-open
-    container_name: opengrok-test
+    image: opengrok/docker:latest
+    container_name: opengrok-bco
+    #user: 1000:1000
     ports: 
-      - "8080:8080"
+      - "9080:8080"
     environment:
-      REINDEX: 30
+      SYNC_PERIOD_MINUTES: '60'
     # Volumes store your data between container upgrades
     volumes:
        - '~/opengrok/src:/opengrok/src/'  # source code
