@@ -1,10 +1,21 @@
-version: '3'
+version: "3.2"
+services:
 
-services: 
-    redis:
-        container_name: redis-container
-        image: redis:6
-        volumes: 
-            - ./redis.conf:/usr/local/etc/redis/redis.conf
-            - ~/redis-data:/data
-        command: redis-server /usr/local/etc/redis/redis.conf --appendonly yes #reescribe el CMD
+ redis:
+    image: "redis:alpine"
+
+    command: redis-server --requirepass pwd123
+
+    ports:
+     - "6379:6379"
+
+    volumes:
+     - ~/redis-data:/var/lib/redis
+     - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+    environment:
+     - REDIS_REPLICATION_MODE=master
+
+    networks:
+      node_net:
+        ipv4_address: 172.28.1.4

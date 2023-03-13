@@ -1,2 +1,2 @@
-CREATE DATABASE IF NOT EXISTS `test`;
-GRANT ALL ON `test`.* TO 'user'@'%';
+CREATE DATABASE IF NOT EXISTS `mydb`;
+GRANT ALL ON `mydb`.* TO 'admin'@'%';
