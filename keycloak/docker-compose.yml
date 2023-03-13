@@ -1,0 +1,24 @@
+version: '3'  
+services:
+  keycloak:
+    image: jboss/keycloak
+    restart: unless-stopped
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloakdb
+      DB_USER: admin
+      DB_PASSWORD: 123
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      # KEYCLOAK_LOGLEVEL: DEBUG
+      # ROOT_LOGLEVEL: DEBUG
+    ports:
+      - '9083:8080'
+    networks: 
+      - postgres_default
+    # depends_on:
+    #   - postgres
+networks: 
+    postgres_default:
+      external: true

@@ -4,6 +4,7 @@ services:
   jenkins:
     container_name: jenkins
     image: jenkins/jenkins
+    restart: unless-stopped
     user: 1000:1000
     environment:
       JENKINS_OPTS: '--httpPort=9090'

@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    user: 1000:1000
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123
+    volumes: 
+      - ~/mongodb/mongod.conf:/etc/mongod.conf
+      - ~/mongodb/initdb.d/:/docker-entrypoint-initdb.d/
+      - ~/mongodb/data/db/:/data/db/
+      - ~/mongodb/data/log/:/var/log/mongodb/
+    networks:
+      - mongodb-network
+    ports: 
+      - 27027:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    environment: 
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGOD_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=root
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=123
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin
+    #volumes: 
+    #  - mongodb-data
+    networks: 
+      - mongodb-network
+    ports: 
+      - 8088:8081
+    depends_on: 
+      - mongodb
+    healthcheck:
+      test: wget --quiet --spider http://admin:admin@localhost:8081 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+#volumes: 
+#  mongodb-data:
+#    name: mongodb-data
+networks: 
+  mongodb-network:
+    name: mongodb-network
