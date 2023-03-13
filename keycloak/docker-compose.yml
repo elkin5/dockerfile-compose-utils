@@ -2,7 +2,7 @@ version: '3'
 services:
   keycloak:
     image: jboss/keycloak
-    restart: unless-stopped
+    #restart: unless-stopped
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
