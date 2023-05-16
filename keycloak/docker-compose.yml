@@ -1,7 +1,7 @@
 version: '3'  
 services:
   keycloak:
-    image: jboss/keycloak
+    image: quay.io/keycloak/keycloak:20.0.1
     #restart: unless-stopped
     environment:
       DB_VENDOR: POSTGRES
@@ -17,6 +17,8 @@ services:
       - '9083:8080'
     networks: 
       - postgres_default
+    command:
+      - start-dev --hostname=http://myproduct.local/keycloak
     # depends_on:
     #   - postgres
 networks: 
