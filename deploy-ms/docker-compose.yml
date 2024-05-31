@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app1:
+    build:
+      context: ./ms_obligation
+    # ports:
+    #   - "8082:8082"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: '512m'
+    network_mode: "host"
+
+  app2:
+    build:
+      context: ./ms_auth
+    # ports:
+    #   - "8089:8089"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '256m'
+    network_mode: "host"

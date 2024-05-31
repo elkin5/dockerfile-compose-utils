@@ -1,20 +1,31 @@
-version: "3.2"
+version: "3.9"
 services:
   rabbitmq:
-    image: rabbitmq:3.8.16-management-alpine
+    image: rabbitmq:3.8.34-management-alpine
     container_name: 'rabbitmq-3.8.16'
     restart: unless-stopped
-    user: 1000:1000
-    ports:
-        - 5672:5672
-        - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_VM_MEMORY_HIGH_WATERMARK: 256MB # Limita el uso de memoria
+      RABBITMQ_MAX_CONNECTIONS: 100 # Limita el número máximo de conexiones
+    # user: 1000:1000
+    # ports:
+    #     - 5672:5672
+    #     - 15672:15672
     volumes:
         - ~/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/rabbitmq/log/:/var/log/rabbitmq
-    networks:
-        - rabbitmq_go_net
+    # networks:
+    #     - rabbitmq_go_net
     hostname: rabbitmq
+    network_mode: "host"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'       # Limita el uso de CPU a 1 núcleo
+          memory: 512M      # Limita la memoria a 512 MB
 
-networks:
-  rabbitmq_go_net:
-    driver: bridge
+# networks:
+#   rabbitmq_go_net:
+#     driver: bridge
