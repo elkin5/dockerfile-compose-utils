@@ -1,4 +1,4 @@
-version: '2'
+version: "3.9"
 services:
   # postgresql:
   #   image: docker.io/bitnami/postgresql:latest
@@ -10,23 +10,30 @@ services:
   #     - 'postgresql_data:/bitnami/postgresql'
   keycloak:
     image: docker.io/bitnami/keycloak:latest
+    container_name: keycloak
+    restart: unless-stopped
     environment:
       KEYCLOAK_CREATE_ADMIN_USER: true
       KEYCLOAK_ADMIN_USER: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KEYCLOAK_DATABASE_VENDOR: postgresql
-      KEYCLOAK_DATABASE_HOST: postgres
+      KEYCLOAK_DATABASE_HOST: localhost
       KEYCLOAK_DATABASE_NAME: keycloakdb
       KEYCLOAK_DATABASE_USER: admin
       KEYCLOAK_DATABASE_PASSWORD: 123
-      KEYCLOAK_HTTP_PORT: 8085
-
-    ports:
-      - '9083:8085'
-    networks: 
-      - postgres_default
+      KEYCLOAK_HTTP_PORT: 9083
+    network_mode: "host"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'       # Limita el uso de CPU a 1 núcleo
+          memory: 512M      # Limita la memoria a 512 MB
+    # ports:
+    #   - '9083:8085'
+    # networks: 
+    #   - postgres_default
     # depends_on:
     #   - postgres
-networks: 
-    postgres_default:
-      external: true
+# networks: 
+#     postgres_default:
+#       external: true
