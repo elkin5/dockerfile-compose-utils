@@ -2,11 +2,11 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:15.7-alpine3.19
+    image: postgres:alpine3.20
     container_name: postgres_db
     restart: unless-stopped
-    # ports:
-    #   - "5432:5432" comentados para que utilice la red host
+    ports:
+      - "5432:5432" #comentados para que utilice la red host
     # user: 1000:1000
     # networks:
     #   - nginx-server_default
@@ -17,10 +17,10 @@ services:
       - POSTGRES_PASSWORD=123
       - POSTGRES_DB=postgres
     volumes:
-      - ~/postgresql:/var/lib/postgresql
-      - ~/postgresql/data:/var/lib/postgresql/data
-    network_mode: "host"
-    deploy:
+      - ~/postgres:/var/lib/postgresql
+      - ~/postgres/data:/var/lib/postgresql/data
+    #network_mode: "host"
+    deploy: 
       resources:
         limits:
           cpus: '1.0'       # Limita el uso de CPU a 1 núcleo
