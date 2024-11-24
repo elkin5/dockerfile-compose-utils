@@ -1,0 +1,29 @@
+services:
+  jupyterlab:
+    image: jupyter/datascience-notebook:latest
+    container_name: jupyterlab
+    ports:
+      - "8888:8888"  # Exponer JupyterLab en el puerto 8888
+    volumes:
+      - ~/jupyterlab:/home/jovyan/work  # Mapear la carpeta local a la carpeta de trabajo del contenedor
+    networks:
+      - postgres_network  # Conectar a la red de Docker donde está la base de datos
+    environment:
+      - JUPYTER_ENABLE_LAB=yes  # Activar JupyterLab en lugar de Jupyter Notebook
+      - GRANT_SUDO=yes          # Permitir acceso sudo dentro del contenedor (opcional)
+    command: 
+      - start-notebook.sh
+      - --NotebookApp.token=''
+    deploy:
+      resources:
+        limits:
+          memory: 4g         # Limitar el contenedor a 4 GB de RAM
+          cpus: "2.0"        # Limitar el contenedor a usar un máximo de 2 CPUs
+        reservations:
+          memory: 2g         # Reservar al menos 2 GB de RAM para el contenedor
+          cpus: "1.0"        # Reservar al menos 1 CPU para el contenedor
+
+networks:
+  postgres_network:
+    name: postgres_default
+    external: true  # Nombre de la red existente
