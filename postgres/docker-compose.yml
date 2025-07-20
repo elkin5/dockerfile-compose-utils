@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:alpine3.20
+    image: pgvector/pgvector:pg16
     container_name: postgres_db
     restart: unless-stopped
     ports:
@@ -19,6 +19,7 @@ services:
     volumes:
       - ~/postgres:/var/lib/postgresql
       - ~/postgres/data:/var/lib/postgresql/data
+      - ./init-pgvector.sql:/docker-entrypoint-initdb.d/init-pgvector.sql
     #network_mode: "host"
     deploy: 
       resources:
